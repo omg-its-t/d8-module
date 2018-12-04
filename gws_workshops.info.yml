@@ -1,0 +1,6 @@
+name: Grundy Workforce Workshop Registration
+description: Application to enter workshop dates and view registrants
+type: module
+core: 8.x
+package: "Joliet Junior College Custom"
+version: 1.0

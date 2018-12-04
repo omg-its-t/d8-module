@@ -1,0 +1,16 @@
+gws_workshops.view:
+  path: '/gws-workshops/view-all'
+  defaults:
+    _form: '\Drupal\gws_workshops\forms\ViewAllWorkshops'
+    _title: 'View All Workshops'
+  requirements:
+    _permission: 'access content'
+    
+gws_workshops.add:
+  path: '/gws-workshops/add'
+  defaults:
+    _form: '\Drupal\gws_workshops\forms\AddWorkshopForm'
+    _title: 'Add Workshop'
+  requirements:
+    _permission: 'access content'
+
