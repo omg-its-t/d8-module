@@ -7,7 +7,7 @@ use Symfony\Component\PropertyAccess\PropertyAccess;
 
 
 /**
- * GWS add Workshop Form
+ * GWS Register for Workshop Form
  */
 
 class AddWorkshopForm extends FormBase{
@@ -50,7 +50,7 @@ class AddWorkshopForm extends FormBase{
         $form['startTime'] = [
             '#type' => 'textfield',
             '#title' => $this->t('Start Time'),
-            '#required' => TRUE,
+            '#required' => TRUE, 
         ];
 
         $form['endTime'] = [

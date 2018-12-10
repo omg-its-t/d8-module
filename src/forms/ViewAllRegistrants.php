@@ -7,16 +7,16 @@ use Symfony\Component\PropertyAccess\PropertyAccess;
 
 
 /**
- * GWS View Registrants Form
+ * GWS View Workshop Form
  */
 
-class ViewAllWorkshops extends FormBase{
+class ViewAllRegistrants extends FormBase{
 
     /**
     * {@inheritdoc}
     */
     public function getFormId(){
-        return 'workshop_table_form';
+        return 'registrants_table_form';
     }
 
     /**
