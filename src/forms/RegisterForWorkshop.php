@@ -145,7 +145,8 @@ class RegisterForWorkshop extends FormBase{
             'comments' => $form_state->getValue('comments'),
           )
         )->execute();
-
-        $form_state->setRedirect('gws_workshops.view-workshops');
+        
+        //location from routing.yml file
+        $form_state->setRedirect('gws_workshops.view-registrants');
     }
 }

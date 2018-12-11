@@ -6,11 +6,11 @@ gws_workshops.add:
   requirements:
     _permission: 'access content'
 
-gws_workshops.register:
-  path: '/gws-workshops/register'
+gws_workshops.edit-workshop:
+  path: '/gws-workshops/{workshop}/edit'
   defaults:
-    _form: '\Drupal\gws_workshops\forms\RegisterForWorkshop'
-    _title: 'Register For a Workshop'
+    _form: '\Drupal\gws_workshops\forms\EditWorkshopForm'
+    _title: 'Edit'
   requirements:
     _permission: 'access content'
 
@@ -29,3 +29,12 @@ gws_workshops.view-registrants:
     _title: 'View All Registrants'
   requirements:
     _permission: 'access content'
+
+gws_workshops.register:
+  path: '/gws-workshops/register'
+  defaults:
+    _form: '\Drupal\gws_workshops\forms\RegisterForWorkshop'
+    _title: 'Register For a Workshop'
+  requirements:
+    _permission: 'access content'
+

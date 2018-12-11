@@ -4,6 +4,7 @@ namespace Drupal\gws_workshops\forms;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Symfony\Component\PropertyAccess\PropertyAccess;
+use Drupal\gws_workshops\WorkshopStorage;
 
 
 /**
@@ -33,7 +34,6 @@ class ViewAllWorkshops extends FormBase{
         ->orderBy('id', 'DESC')
         ->execute()->fetchAll();
 
-
         $header = ['Workshop Title', 'Start Date', 'Start Time', 'End Time', ' button '];
         $rows = [];
 
@@ -48,7 +48,6 @@ class ViewAllWorkshops extends FormBase{
             //build each row as it is taken from the database
             $rows[] = [
                     $workshopTitle, $startDate, $startTime, $endTime, $btn
-                    //$form['edit'] = [ '#type' => 'textfield', '#value' => $this->t($id),]
                 ];
         }
 
@@ -74,10 +73,8 @@ class ViewAllWorkshops extends FormBase{
     * {@inheritdoc}
     */
     public function submitForm(array &$form, FormStateInterface $form_state){
-
         header('Location: '.$url);
         exit();
-
     }
 
 
