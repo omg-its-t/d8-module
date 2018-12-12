@@ -1,0 +1,5 @@
+gws_workshops_library:
+  version: 1.x
+  css:
+    component:
+      css/gws_workshop.css: {}

@@ -1,0 +1,23 @@
+td{
+    padding: .5em;
+}
+
+table{
+    padding-top: 1em;
+}
+
+td.delete{
+    background-color: red;
+    padding: .6em 1em;
+    margin-left: .2em;
+}
+
+td.edit{
+    padding: .6em 1em;
+    margin-right: .2em;
+}
+
+td.edit,
+td.delete {
+    cursor: pointer;
+}

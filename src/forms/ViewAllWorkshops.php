@@ -24,8 +24,6 @@ class ViewAllWorkshops extends FormBase{
     * {@inheritdoc}
     */
     public function buildForm(array $form, FormStateInterface $form_state, $params=NULL){
-        //attach library to array
-        //$form['#attached']['library'][] = 'aleks_sso_form/aleks_sso_form_library';
 
         //get workshop info from db and display in table
         $allWorkshopsQuery = db_select('gws_workshop', 'ws');
@@ -47,12 +45,8 @@ class ViewAllWorkshops extends FormBase{
 
             //build each row as it is taken from the database
             $rows[] = [
-                $this->findWorkshopTitle($workshopId), $this->getWorkshopDesc($workshopId), $startDate, $startTime, $endTime, 
-                    $form[] = array(
-                        '#type' => 'button',
-                        '#value' => $id,
-                    )
-                ];
+                $this->findWorkshopTitle($workshopId), $this->getWorkshopDesc($workshopId), $startDate, $startTime, $endTime, $id,
+            ];
         }
 
         $form[] = [
@@ -61,6 +55,15 @@ class ViewAllWorkshops extends FormBase{
             '#rows' => $rows,
         ];
 
+        $form['submit'] =[
+            '#type' => 'submit',
+            '#title' =>'Delete',
+            '#value' => $id,
+            '#class' => 'delete',
+        ];
+
+        //attach library to array
+        $form['#attached']['library'][] = 'gws_workshops/gws_workshops_library';
         return $form;
 
     }
@@ -71,15 +74,14 @@ class ViewAllWorkshops extends FormBase{
     public function validateForm(array &$form, FormStateInterface $form_state) {
 
         //check each field for proper input
-
-  }
+    }
 
     /**
     * {@inheritdoc}
     */
     public function submitForm(array &$form, FormStateInterface $form_state){
-        header('Location: '.$url);
-        exit();
+
+        $form_state->setRedirect('gws_workshops.edit-workshop');
     }
     private function findWorkshopTitle($testId){
 
@@ -87,7 +89,6 @@ class ViewAllWorkshops extends FormBase{
         $allTitleQuery = db_select('gws_workshop_title', 'ws');
         $titleData = $allTitleQuery
         ->fields('ws', array('id', 'title'))
-        //->orderBy('id', 'DESC')
         ->execute()->fetchAll();
 
         foreach ($titleData as $record){
