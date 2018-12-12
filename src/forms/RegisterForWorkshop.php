@@ -41,13 +41,13 @@ class RegisterForWorkshop extends FormBase{
         //loop through each record and assign to variable
         foreach ($workshopData as $record){
             $id = $record->id;
-            $workshopTitle = $record->workshopTitle; 
+            $workshopId = $record->workshopTitle; 
             $startDate = $record->startDate;
             $startTime = $record->startTime;
             $endTime = $record->endTime;
             
             //format and add option to array for select list
-            $options[] = ($workshopTitle." on ".$startDate." at ".$startTime);
+            $options[] = ($this->findWorkshopTitle($workshopId)." on ".$startDate." at ".$startTime);
         }
 
         $form['fname'] = [
@@ -148,5 +148,21 @@ class RegisterForWorkshop extends FormBase{
         
         //location from routing.yml file
         $form_state->setRedirect('gws_workshops.view-registrants');
+    }
+
+    private function findWorkshopTitle($testId){
+
+        //get workshop info from db
+        $allTitleQuery = db_select('gws_workshop_title', 'ws');
+        $titleData = $allTitleQuery
+        ->fields('ws', array('id', 'title'))
+        //->orderBy('id', 'DESC')
+        ->execute()->fetchAll();
+
+        foreach ($titleData as $record){
+            if($testId == $record->id){
+                return $record->title; 
+            }
+        }
     }
 }

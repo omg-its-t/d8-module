@@ -28,19 +28,28 @@ class AddWorkshopForm extends FormBase{
         //$form['#cache']['max-age'] = 0;
         //disables html 5 validation and hides error messages until user hits submit
         //$form['#attributes']['novalidate'] = 'novalidate';
+
+        // grab workshops from DB
+        $allTitleQuery = db_select('gws_workshop_title', 'wst');
+        $titleData = $allTitleQuery
+        ->fields('wst', array('id', 'title'))
+        ->orderBy('id', 'DESC')
+        ->execute()->fetchAll();              
         
-        $form['workshopTitle'] = [
+        $options = [];
+
+        //loop through each record and assign to variable
+        foreach ($titleData as $record){
+            $options[] = ($record->title);
+        }
+
+        $form['workshopId'] = array(
             '#type' => 'select',
-            '#title' => t('Workshop Title'),
-            '#options' => [
-              '' => 'Select Workshop',
-              'workshop1' => 'title1',
-              'workshop2' => 'title2',
-              'workshop3' => 'title3',
-            ],
+            '#title' => 'Workshop',
+            '#options' => $options,
             '#required' => TRUE,
-        ];
-        
+        );
+
         $form['startDate'] = [
             '#type' => 'date',
             '#title' => $this->t('Start Date'),
@@ -89,13 +98,14 @@ class AddWorkshopForm extends FormBase{
         $connection = \Drupal::database();
         $connection->insert('gws_workshop')->fields(
           array(
-            'workshopTitle' => $form_state->getValue('workshopTitle'),
+            //the value for workshopTitle is the array index so we need to add 1 to jive up with DB assigned id
+            'workshopTitle' => $form_state->getValue('workshopId')+1,
             'startDate' => $form_state->getValue('startDate'),
             'startTime' => $form_state->getValue('startTime'),
             'endTime' => $form_state->getValue('endTime'),
           )
         )->execute();
 
-        $form_state->setRedirect('gws_workshops.view');
+        $form_state->setRedirect('gws_workshops.view-workshops');
     }
 }

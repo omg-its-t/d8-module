@@ -1,5 +1,13 @@
+gws_workshops.add_title:
+  path: '/gws-workshops/title/add'
+  defaults:
+    _form: '\Drupal\gws_workshops\forms\AddTitleForm'
+    _title: 'Add Workshop'
+  requirements:
+    _permission: 'access content'
+
 gws_workshops.add:
-  path: '/gws-workshops/add'
+  path: '/gws-workshops/workshop/add'
   defaults:
     _form: '\Drupal\gws_workshops\forms\AddWorkshopForm'
     _title: 'Add Workshop'
@@ -7,7 +15,7 @@ gws_workshops.add:
     _permission: 'access content'
 
 gws_workshops.edit-workshop:
-  path: '/gws-workshops/{workshop}/edit'
+  path: '/gws-workshops/workshop/{workshop}/edit'
   defaults:
     _form: '\Drupal\gws_workshops\forms\EditWorkshopForm'
     _title: 'Edit'

@@ -34,20 +34,21 @@ class ViewAllWorkshops extends FormBase{
         ->orderBy('id', 'DESC')
         ->execute()->fetchAll();
 
-        $header = ['Workshop Title', 'Start Date', 'Start Time', 'End Time', ' button '];
+        $header = ['Workshop Title', 'Description', 'Start Date', 'Start Time', 'End Time', ' button '];
         $rows = [];
 
         //loop through each DB row and assign to value and output in a table row
         foreach ($workshopData as $record){
             $btn = '<html><button>'.$record->id.'</button></html>';
-            $workshopTitle = $record->workshopTitle; 
+            $workshopId = $record->workshopTitle; 
             $startDate = $record->startDate;
             $startTime = $record->startTime;
             $endTime = $record->endTime;
 
             //build each row as it is taken from the database
             $rows[] = [
-                    $workshopTitle, $startDate, $startTime, $endTime, $btn
+                //$workshopId, $startDate, $startTime, $endTime, $btn
+                $this->findWorkshopTitle($workshopId), $this->getWorkshopDesc($workshopId), $startDate, $startTime, $endTime, $btn
                 ];
         }
 
@@ -76,7 +77,37 @@ class ViewAllWorkshops extends FormBase{
         header('Location: '.$url);
         exit();
     }
+    private function findWorkshopTitle($testId){
 
+        //get workshop info from db
+        $allTitleQuery = db_select('gws_workshop_title', 'ws');
+        $titleData = $allTitleQuery
+        ->fields('ws', array('id', 'title'))
+        //->orderBy('id', 'DESC')
+        ->execute()->fetchAll();
+
+        foreach ($titleData as $record){
+            if($testId == $record->id){
+                return $record->title; 
+            }
+        }
+    }
+
+    private function getWorkshopDesc($testId){
+
+        //get workshop info from db
+        $allTitleQuery = db_select('gws_workshop_title', 'ws');
+        $titleData = $allTitleQuery
+        ->fields('ws', array('id','description'))
+        ->execute()->fetchAll();
+
+        foreach ($titleData as $record){
+            if($testId == $record->id){
+                return $desc = $record->description;
+            }
+        }
+
+    }
 
 }
 
