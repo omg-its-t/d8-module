@@ -34,12 +34,12 @@ class ViewAllWorkshops extends FormBase{
         ->orderBy('id', 'DESC')
         ->execute()->fetchAll();
 
-        $header = ['Workshop Title', 'Description', 'Start Date', 'Start Time', 'End Time', ' button '];
+        $header = ['Workshop Title', 'Description', 'Start Date', 'Start Time', 'End Time','Button'];
         $rows = [];
 
         //loop through each DB row and assign to value and output in a table row
         foreach ($workshopData as $record){
-            $btn = '<html><button>'.$record->id.'</button></html>';
+            $id = $record->id;
             $workshopId = $record->workshopTitle; 
             $startDate = $record->startDate;
             $startTime = $record->startTime;
@@ -47,8 +47,11 @@ class ViewAllWorkshops extends FormBase{
 
             //build each row as it is taken from the database
             $rows[] = [
-                //$workshopId, $startDate, $startTime, $endTime, $btn
-                $this->findWorkshopTitle($workshopId), $this->getWorkshopDesc($workshopId), $startDate, $startTime, $endTime, $btn
+                $this->findWorkshopTitle($workshopId), $this->getWorkshopDesc($workshopId), $startDate, $startTime, $endTime, 
+                    $form[] = array(
+                        '#type' => 'button',
+                        '#value' => $id,
+                    )
                 ];
         }
 
@@ -57,6 +60,7 @@ class ViewAllWorkshops extends FormBase{
             '#header' => $header,
             '#rows' => $rows,
         ];
+
         return $form;
 
     }
